@@ -1,17 +1,25 @@
 import { Button, Form, Input } from 'antd'
 import React from 'react'
-import { updatePhoneSession } from '../../Auth/AuthenticationServices'
+import { getCurrentUser, updatePhoneSession } from '../../Auth/AuthenticationServices'
+import { useUserStore } from '../../state/user'
 
-const SessionVerificationForm = ({phoneSessionResult}) => {
-    console.log(phoneSessionResult)
+const SessionVerificationForm = ({phoneSessionResult , modalClose}) => {
+    const {storeUser , storeSession} = useUserStore()
+
     const onFinish = async(values)=>{
         const result = await updatePhoneSession(phoneSessionResult.userId , values.otp , phoneSessionResult.name)
-        console.log(result)
+        
+        if(result.$id){
+            var user = await getCurrentUser()
+            storeUser(user)
+            storeSession(true)
+            modalClose(false)
+        }
     }
 
   return (
     <div>
-        <h3>Hello {phoneSessionResult.name} , Please enter your otp sent to your registered phone number</h3>
+        { phoneSessionResult.name && (<><h3>Hello {phoneSessionResult.name} , Please enter your otp sent to your registered phone number</h3></>) }
             <Form
                 name="basic"
                 labelCol={{
@@ -35,7 +43,7 @@ const SessionVerificationForm = ({phoneSessionResult}) => {
                 rules={[
                     {
                     required: true,
-                    message: 'Please input your Name!',
+                    message: 'Please input your OTP!',
                     },
                 ]}
                 >

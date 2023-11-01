@@ -3,7 +3,7 @@ import { Button, Checkbox, Form, Input , Modal } from 'antd';
 import { createPhoneSession } from '../../Auth/AuthenticationServices';
 import SessionVerificationForm from './SessionVerificationForm';
 
-const RegistrationForm = ({ isModalOpen , modalClose }) => {
+const RegistrationForm = ({ isModalOpen , modalClose , setIsModalOpen}) => {
 
     const [otpSent , setOtpSent] = useState(false)
     const [phoneSessionDetails , setPhoneSessionDetails] = useState({})
@@ -23,7 +23,7 @@ const RegistrationForm = ({ isModalOpen , modalClose }) => {
         <Modal open={isModalOpen} onCancel={modalClose} title={"Register"} footer={null}>
     {
         otpSent ? (<>
-            <SessionVerificationForm phoneSessionResult={phoneSessionDetails}/>
+            <SessionVerificationForm phoneSessionResult={phoneSessionDetails} modalClose={setIsModalOpen}/>
             </>) : 
             (<>
                 <div>
