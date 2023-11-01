@@ -26,7 +26,7 @@ export async function deleteCurrentSession(){
         return null;
     }
 }
-export async function createPhoneSession(number , userId){
+export async function createPhoneSessionForDriver(number , userId){
     var uniqueId = userId ? userId : ID.unique();
     var phoneNo = number;
 
@@ -38,9 +38,12 @@ export async function createPhoneSession(number , userId){
     }
 }
 
-export async function updatePhoneSession(userId , otp){
+export async function updatePhoneSessionForDriver(userId , otp){
     try {
         const promise = await account.updatePhoneSession(userId , otp)
+        account.updatePrefs({
+            role : "Driver"
+        })
         return promise;
     } catch (error) {
         return null;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Checkbox, Form, Input , Modal } from 'antd';
-import { createPhoneSession } from '../../Auth/AuthenticationServices';
+import { createPhoneSessionForDriver } from '../../Auth/AuthenticationServices';
 import SessionVerificationForm from './SessionVerificationForm';
 
 const RegistrationForm = ({ isModalOpen , modalClose , setIsModalOpen}) => {
@@ -10,7 +10,7 @@ const RegistrationForm = ({ isModalOpen , modalClose , setIsModalOpen}) => {
 
     const onFinish = async(values) => {
 
-    const phoneSessionResult = await createPhoneSession(values.phoneNo)
+    const phoneSessionResult = await createPhoneSessionForDriver(values.phoneNo)
     phoneSessionResult.name = values.fullName
     setPhoneSessionDetails(phoneSessionResult)
     if(phoneSessionResult.userId && phoneSessionResult.expire){

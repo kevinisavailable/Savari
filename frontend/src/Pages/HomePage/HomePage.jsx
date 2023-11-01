@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 
 
 const HomePage = () => {
-  const {doesSessionExists , storeSession , storeUser} = useUserStore()
+  const {doesSessionExists , storeSession , storeUser , role} = useUserStore()
   const navigate = useNavigate()
 
   const [isModalOpen , setIsModalOpen] = useState(false)
@@ -21,7 +21,14 @@ const HomePage = () => {
 
   useEffect(() => {
     if(doesSessionExists){
-      navigate('/driver')
+      //Check for role then only navigate
+      if(role === 'Driver'){
+        navigate('/driver')
+      }else if(role === 'Passenger'){
+        navigate('/passenger')
+      }else{
+        navigate('/admin')
+      }
     }
   }, [doesSessionExists])
   

@@ -1,13 +1,13 @@
 import { Button, Form, Input } from 'antd'
 import React from 'react'
-import { getCurrentUser, updatePhoneSession } from '../../Auth/AuthenticationServices'
+import { getCurrentUser, updatePhoneSessionForDriver } from '../../Auth/AuthenticationServices'
 import { useUserStore } from '../../state/user'
 
 const SessionVerificationForm = ({phoneSessionResult , modalClose}) => {
     const {storeUser , storeSession} = useUserStore()
 
     const onFinish = async(values)=>{
-        const result = await updatePhoneSession(phoneSessionResult.userId , values.otp , phoneSessionResult.name)
+        const result = await updatePhoneSessionForDriver(phoneSessionResult.userId , values.otp , phoneSessionResult.name)
         
         if(result.$id){
             var user = await getCurrentUser()

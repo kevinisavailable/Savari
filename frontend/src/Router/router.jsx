@@ -1,6 +1,7 @@
 import {createBrowserRouter } from "react-router-dom";
 import HomePage from "../Pages/HomePage/HomePage";
 import Protected from "../Auth/Protected";
+import DriverHomePage from "../Pages/Driver/DriverHomePage";
 
 export const routes = createBrowserRouter([
     {
@@ -9,6 +10,6 @@ export const routes = createBrowserRouter([
     },
     {
         path : "/driver",
-        element : <Protected>Driver</Protected> //Here you can publish location data to ably
+        element : <Protected><DriverHomePage /></Protected> //Here you can publish location data to ably
     }
   ]);

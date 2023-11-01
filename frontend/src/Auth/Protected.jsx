@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useUserStore } from '../state/user'
 import { useNavigate } from 'react-router-dom'
+import MainLayout from '../Layout/MainLayout'
+import { driverMenuItems } from '../Layout/SidebarMenuItems'
 
 const Protected = ({children}) => {
-  const {doesSessionExists} = useUserStore()
+  const {doesSessionExists , role} = useUserStore()
   const navigate = useNavigate()
-
+  const [menuItems , setMenuItems] = useState(driverMenuItems)
   useEffect(() => {
     if(!doesSessionExists){
       navigate('/')
@@ -13,10 +15,17 @@ const Protected = ({children}) => {
   
   }, [doesSessionExists])
   
+  useEffect(() => {
+    //Here also with respect to the role provide a sidebar menu items layout
+    if(role === 'Driver'){
+      setMenuItems(driverMenuItems)
+    }
+  }, [role])
+  
   return (
-    <div>
+      <MainLayout menuItems={menuItems}>
         {children}
-    </div>
+      </MainLayout>
   )
 }
 

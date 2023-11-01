@@ -1,6 +1,6 @@
 import { Button, Form, Input, Modal } from 'antd'
 import React, { useState } from 'react'
-import { createPhoneSession } from '../../Auth/AuthenticationServices'
+import { createPhoneSessionForDriver } from '../../Auth/AuthenticationServices'
 import SessionVerificationForm from '../Register/SessionVerificationForm'
 
 const LoginForm = ({isLoginModalOpen , loginModalClose , setIsLoginModalOpen}) => {
@@ -8,7 +8,7 @@ const LoginForm = ({isLoginModalOpen , loginModalClose , setIsLoginModalOpen}) =
     const [otpSent , setOtpSent] = useState(false)
 
     const onFinish = async(values)=>{
-        const phoneSessionResult = await createPhoneSession(values.phoneNo , values.userId)
+        const phoneSessionResult = await createPhoneSessionForDriver(values.phoneNo , values.userId)
         setPhoneSessionDetails(phoneSessionResult)
         if(phoneSessionResult.userId && phoneSessionResult.$createdAt){
             setOtpSent(true)

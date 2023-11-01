@@ -6,7 +6,7 @@ import { useUserStore } from './state/user'
 
 
 const App = () => {
-  const {storeUser , storeSession ,doesSessionExists } = useUserStore()
+  const {storeUser , storeSession ,doesSessionExists , storeRole } = useUserStore()
 
   useEffect(() => {
     const getUser = async()=>{
@@ -14,6 +14,7 @@ const App = () => {
         var user = await getCurrentUser()
         storeUser(user)
         storeSession(true)
+        storeRole(user.prefs.role)
       } catch (error) {
         storeSession(false)
       }
